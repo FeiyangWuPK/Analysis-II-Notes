@@ -1,0 +1,138 @@
+\documentclass{tufte-handout}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{example}{Example}[section]
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{Real Analysis II}
+\author[Feiyang Wu]{Feiyang Wu}
+% \date{}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\begin{document}
+
+\setcounter{section}{1} 
+
+\maketitle% this prints the handout title, author, and date
+
+\begin{abstract}
+\noindent This documents reviews important topics in Real Analysis.
+\end{abstract}
+
+\section{Basics of Abstract Measure}
+\begin{definition}[$\sigma$-algebra]
+    For a given set $X$, a collection $\mathcal{M}$ of subsets of $X$ is called the $\sigma$-algebra if 
+    \begin{enumerate}
+        \item $\emptyset\in \mathcal{M}$,
+        \item $A\in \mathcal{M} \Rightarrow A^c \in \mathcal{M}$,
+        \item If $A_1, A_2, \dots$ is a sequence in $\mathcal{M}$, then $\bigcup^\infty_{j=1}A_j \in \mathcal{M}$, and consequently, $\bigcap^\infty_{j=1}A_j \in \mathcal{M}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Measure]
+    A measure on $\mathcal{M}$ is a function $\mu:\mathcal{M} \rightarrow [0,+\infty]$ such that $\mu(\emptyset)=0$, and if $A_1, A_2, \dots$ is a sequence in $\mathcal{M}$ and pairwise disjoint, then 
+    \[
+    \mu\left(\bigcup^\infty_{j=1}A_j \in \mathcal{M}\right) = \sum^{\infty}_{j=1} \mu(A_j).
+    \]
+\end{definition}
+\subsection{Basic Consequences}
+\begin{enumerate}
+    \item If $A,B\in \mathcal{M}$, and $A\subseteq B$, then $\mu(A) \leq \mu(B)$. (due to $B=A\cup B\backslash A$).
+    \item If $A_1, A_2, \dots \in \mathcal{M}$, then 
+    \[
+    \mu\left(\bigcup^\infty_{j=1}A_j \in \mathcal{M}\right)
+    \leq 
+    \sum^{\infty}_{j=1} \mu(A_j).
+    \]
+    \begin{proof}
+        Put $B_1=A_1, B_2=B_1\backslash A_1, B_3\backslash A_2\cup A_1, \dots, B_n=A_n\backslash \bigcup^{n-1}_{j=1}A_j,\dots$ and we have $B_j\in \mathcal{M}$, and $\bigcup^{\infty}_{j=1} B_j = \bigcup^{\infty}_{j=1} A_j$, and $B_j$s are pairwise disjoint. Hence,
+        \[
+        \mu \left( \bigcup^{infty}_{j=1} A_j \right)
+        =\mu \left( \bigcup^{infty}_{j=1} B_j \right) \leq 
+        \sum^{\infty}_{j=1} \mu(B_j) \leq \sum^{\infty}_{j=1} \mu(A_j).
+        \]
+    \end{proof}
+\end{enumerate}
+
+\subsection{Continuity properties}
+\begin{proposition}[Continuity of Measure]
+    \mbox{}
+    \begin{enumerate}
+        \item If $A_1, A_2, \dots \in \mathcal{M}$, $A_j \subseteq A_{j+1}$, if $A = \bigcup^{\infty}_{j=1} A_j$, then 
+        \[
+        \mu(A) = \lim_{j\rightarrow \infty} \mu(A_j).
+        \]
+        \item  Suppose $\mu(A_1) < +\infty$, and if $A_1, A_2, \dots \in \mathcal{M}$, $A_j \supseteq A_{j+1}$, then 
+        \[
+        \mu(\bigcap^{\infty}_{j=1} A_j) = \lim_{j\rightarrow \infty} \mu(A_j).
+        \]
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For (1): Put $B_1=A_1, B_2=B_1\backslash A_1, B_3\backslash A_2\cup A_1, \dots, B_n=A_n\backslash \bigcup^{n-1}_{j=1}A_j,\dots$ and we have $B_j\in \mathcal{M}$, and $\bigcup^{\infty}_{j=1} B_j = \bigcup^{\infty}_{j=1} A_j$, and $B_j$s are pairwise disjoint. Hence,
+    \[
+    \mu(A) = \sum^{\infty}_{j=1} \mu(B_j) = \lim_{k\rightarrow \infty} \sum_{j=1}^{k}\mu(B_j) = \lim_{k\rightarrow \infty} \mu\left( \bigcup^{k}_{j=1} B_j\right) = \lim_{k\rightarrow \infty} \mu(A_k).
+    \]
+    For (2): Consider $B_j = A_1\backslash A_j$. Then we have $B_1 \subseteq B_2 \subseteq \dots$. We then apply (1), for which we get
+    \[
+    \mu\left( \sum_{j=1}^\infty B_j \right) = \lim_{j\rightarrow }\mu(B_j) = \lim_{j\rightarrow \infty} \mu(A_1\backslash A_j).
+    \]
+    Note that $\mu\left( \sum_{j=1}^\infty B_j \right) =\mu(A_1 \backslash \bigcap_{j=1}^\infty A_j) = \mu(A_1) - \mu(\bigcap_{j=1}^\infty A_j)$. On the other hand, $ \lim_{j\rightarrow \infty} \mu(A_1\backslash A_j)=\lim_{j\rightarrow \infty}(\mu(A_1) - \mu(A_j))$. Notice that we can only say 
+    $\mu(A\backslash B) = \mu(A) - \mu(B)$ if $\mu(B)<+\infty$. So that we have
+    \[
+    \lim_{j\rightarrow \infty} \mu(A_j) = \mu\left(\bigcap^\infty_{j=1} A_j\right) \text{ if } \mu(A_1) < +\infty.
+    \]
+\end{proof}
+\begin{example}[Failure if $\mu(A_1) = \infty$]
+    If $A_k=[k,\infty]$, then $\mu(A_1)=\infty$, but $\bigcap^\infty_{j=1} A_j = \emptyset$, and the Lebesgue measure $m(A_k) = \infty$ for every $k$.
+\end{example}
+
+\section{Operator Theory}
+\subsection{Dual space}
+
+
+\bibliography{sample-handout}
+\bibliographystyle{plainnat}
+
+
+
+\end{document}
