@@ -127,7 +127,101 @@
 \end{example}
 
 \section{Operator Theory}
-\subsection{Dual space}
+\subsection{Hilbert Space}
+(Notes 5)
+\begin{definition}[Inner Product]
+	An inner product aver a vector space $V$ is a functicin
+$\langle\cdot, \cdot\rangle: V_x V \rightarrow \mathbb{C}$ satisfies
+\begin{enumerate}
+	\item $\langle x, y\rangle=\overline{\langle y, x\rangle} \quad \forall x, y \in V$
+$\overline{a+b i}=a-i b i$
+\item $\langle\alpha x, y\rangle=\alpha\langle x, y\rangle \quad \forall x, y \in V, \alpha \in \mathbb{C}$
+\item $\langle x+y, z\rangle=\langle x, z\rangle+\langle y, z\rangle \forall x, y, z \in V$
+\item $\langle x, x\rangle \geqslant 0 \quad \forall x \in V$
+\item $\langle x, x\rangle=0 \Leftrightarrow x=0$.
+\end{enumerate}
+\end{definition}
+Note that 
+$(a)+(b) \Rightarrow\langle x, \alpha y\rangle=\bar{z}\langle x, y\rangle, \quad\langle x, y+z\rangle=\langle x, y\rangle + \langle x, z\rangle$.
+
+$(V,\langle\cdot, \cdot\rangle)$ is called an inner product space, and often we just say $V$ is an inner product space.
+
+\begin{example}
+	$V=\mathbb{R}^n, \quad\langle x, y\rangle=\sum_{j=1}^n x_j y_j$
+\end{example}
+\begin{example}
+	$V=\mathbb{C}^n, \quad\langle z, \omega\rangle=\sum_{j=1}^n z_j \bar{\omega}_j$, $z_1, \ldots, z_n \in \mathbb{C}$, $w_1, \ldots, w_n \in \mathbb{C}$.
+\end{example}
+\begin{example}
+	\begin{equation*}
+	V=\underbrace{L^2(x, \mu, \mu)}_{\text {allow complex valued functions}}, \langle f, g\rangle=\int_x f(x) \overline{g(x)} d \mu(x).
+	\end{equation*}
+	In this case $\langle f, f\rangle=\int_x|f|^2 d \mu(x)=\|f\|_{\left.L^2\right)}^2$,
+	so $\langle f, f\rangle=0 \Rightarrow f=0$ in $L^2$.
+\end{example}
+If $(V,\langle; \cdot\rangle$,$) is an inner product space, then$
+\begin{equation*}
+\|x\|=\sqrt{\langle x, x\rangle} \text {. }
+\end{equation*}
+
+We claim that $(V,\|\cdot\|)$ is a normed space:
+
+(1) $\|v\|=0 \Leftrightarrow v=0 \quad[$ properties (d)\& (e)]
+
+(2) $\|\alpha v\|=|\alpha|\|v\|$. Indeed:
+\begin{equation*}
+\|\alpha v\|^2=\langle\alpha v, \alpha v\rangle=\alpha\langle v, \alpha v\rangle=\alpha \bar{\alpha}\langle v, v\rangle=|\alpha|^2\|v\|^2
+\end{equation*}
+
+(3) Tringle inequality: $\|v+w\| \leqslant\|v\|+\|w\|$.
+
+For (3) we will need
+The Schwartz inequality, \[|\langle v, w\rangle| \leqslant\|v\|\|w\| . \quad \forall v, w \in V\]
+
+For $\alpha \in \mathbb C$, consider 
+\begin{equation*}
+\begin{aligned}
+ \|v-\alpha w\|^2 &=\langle v-\alpha w, v-\alpha w\rangle\\
+ &=\|v\|^2+|\alpha|^2\|w\|^2 -[\xi \bar{\alpha}\langle v, w\rangle+\alpha\langle v, w\rangle] \\
+ & =\|v\|^2+|\alpha|^2\left\|_w\right\|^2-2 \operatorname{Re}(\bar{\alpha}\langle v, w\rangle) \\
+\end{aligned}
+\end{equation*}
+$\left[\right.$ If $z \in \mathbb{C}, \operatorname{Re}(z)=\frac{z+\bar{z}}{2}$, and $\left.\overline{z \omega}=\bar{z} \bar{\omega}.\right]$ Also note that $z=|z|e^{i\theta}$, $\overline{e^{i\theta}z=|z|}$.
+
+Now select $\lambda \in \mathbb C, |\lambda|=1$ s.t. $\bar{\lambda}\langle v, w\rangle=|\langle v, w\rangle|$.
+For $t \in \mathbb{R}, t>0$, consider (*) with $\alpha=\lambda t$. Then 
+\begin{align*}
+    \|v-\alpha w\|^2&=\|v\|^2+t^2\left\|_w\right\|^2-2 t \mid\langle v, w\rangle 1.\\
+    2t|\langle v,w \rangle| & \leq \|v\|^2+t^2\|w\|^2\\
+    |\langle v, w\rangle| &\leqslant \frac{1}{2}\left[\frac{\|v\|^2}{t}+t\|w\|^2\right] .
+\end{align*}
+The Schwarz inequality is certainly true if $v=0$, or $w=0$. Otherwise select $t=\frac{\|v\|}{\|w\|}$. Then 
+\begin{equation}
+|\langle v, w\rangle| \leqslant \frac{1}{2}[\|v\|\|w\|+\|v\|\|w\|]=\|v\|\|w\| .
+\end{equation}
+$\hfill \square$
+\begin{theorem}
+    A separable Hilbert Space $H$ has an orthonormal basis.
+\end{theorem}
+
+\subsection{Uniform Boundedness Principle}
+\begin{theorem}[Uniform Boundedness Principle]
+    Suppose the $\mathcal{B}$ is a Banach space, and $\mathcal{L}$ is a collection of continuous linear functionals on $\mathbb{B}$.
+    \mbox{}
+    \begin{enumerate}
+    \item If $\sup_{\ell \in \mathcal{L}} |\ell(f)|<\infty$ for each $f\in \mathcal{B}$, then 
+    \begin{equation*}
+        \sup_{\ell \in \mathcal{L}} \| \ell\|<\infty.
+    \end{equation*}
+    \item This conclusion also holds if we only assume that $ \sup_{\ell \in \mathcal{L}} |\ell(f)|<\infty$ for all $f$ in some set of the second category.
+    \end{enumerate}
+\end{theorem}
+
+
+Question 3. Let $X$ be a Banach space. Show that $S \subset X$ is bounded if and only if
+\begin{equation*}
+\sup \{|\mu(x)|: x \in S\}<\infty \text { for every } \mu \in X^* \text {. }
+\end{equation*}
 
 
 \bibliography{sample-handout}
